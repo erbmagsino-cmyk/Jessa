@@ -75,6 +75,22 @@ display:none;
 .dateBtns button{position:absolute;}
 #yesBtn{left:40px;} 
 #noBtn{right:40px;}
+
+#messagePopup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.7);
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:7000;
+opacity:0;
+transition:0.3s ease-in-out;
+}
+#messagePopup.show{opacity:1;display:flex;}
+#messageBox{background:white;color:#ff4d6d;padding:40px;border-radius:20px;width:90%;max-width:300px;text-align:center;font-size:18px;line-height:1.6;box-shadow:0 10px 40px rgba(0,0,0,.3);}
+#messageBox h2{margin:0 0 15px;font-size:28px;}
 </style>
 </head>
 
@@ -146,7 +162,11 @@ for(let i=0;i<28;i++){
     </div>
   </div>
 </div>
-
+<div id="messagePopup">
+  <div id="messageBox">
+    <h2 id="messageText"></h2>
+  </div>
+</div>
 <script>
 const slides=document.querySelectorAll('.slide');
 const nextBtn=document.getElementById('nextBtn');
@@ -157,10 +177,20 @@ const slideshow=document.getElementById('slideshow');
 const countdown=document.getElementById('countdown');
 const endingPage=document.getElementById('endingPage');
 const datePopup=document.getElementById('datePopup');
+const messagePopup=document.getElementById('messagePopup');
+const messageText=document.getElementById('messageText');
 const noBtn=document.getElementById('noBtn');
 const yesBtn=document.getElementById('yesBtn');
 let index=0,typing;
 let autoNoTimer;
+
+function showMessage(msg){
+  messageText.textContent=msg;
+  messagePopup.classList.add('show');
+  setTimeout(()=>{
+    messagePopup.classList.remove('show');
+  },3000);
+}
 
 const dotsContainer=document.getElementById('dots');
 slides.forEach((_,i)=>{
@@ -229,7 +259,7 @@ function finish(){
         datePopup.classList.add('show');
 
         autoNoTimer=setTimeout(()=>{
-          alert("Nah, you clicked too late 😜 It's a date anyway!");
+          showMessage("Nah, you clicked too late 😜 It's a date anyway!");
         },7000);
 
       },3000);
@@ -245,12 +275,12 @@ noBtn.onmouseenter=()=>{
 
 yesBtn.onclick=()=>{
   clearTimeout(autoNoTimer);
-  alert("Yay! It's a date! ❤️");
+  showMessage("Yay! It's a date! ❤️");
 };
 
 noBtn.onclick=()=>{
   clearTimeout(autoNoTimer);
-  alert("Nah, you clicked too late 😜 It's a date anyway!");
+  showMessage("Nah, you clicked too late 😜 It's a date anyway!");
 };
 </script>
 
