@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Valentine's ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{box-sizing:border-box;font-family:Arial,sans-serif;}
+body{margin:0;background:linear-gradient(135deg,#ff758c,#ff7eb3);overflow:hidden;height:100vh;color:white;display:flex;justify-content:center;align-items:center;}
+.heart{position:absolute;font-size:32px;opacity:.6;animation:floatUp 10s linear infinite;}
+@keyframes floatUp{from{transform:translateY(110vh);}to{transform:translateY(-10vh);opacity:0;}}
+.screen{position:absolute;width:92%;max-width:520px;padding:30px 25px 35px;text-align:center;transition:.8s;}
+.hidden{opacity:0;pointer-events:none;transform:scale(.9);display:none;}
+.visible{opacity:1;transform:scale(1);}
+.envelope{width:200px;height:130px;background:white;margin:0 auto 15px;border-radius:10px;position:relative;transition:1s;cursor:pointer;}
+.flap{position:absolute;width:0;height:0;border-left:100px solid transparent;border-right:100px solid transparent;border-top:70px solid #ff4d6d;}
+
+#slideshow{background:rgba(120,40,60,.85);border-radius:20px;min-height:460px;display:flex;flex-direction:column;}
+.content{flex:1;}
+.slide{display:none;padding:40px 20px 0;opacity:0;transition:1s;}
+.slide.active{display:block;opacity:1;}
+.slide img{width:100%;max-height:210px;object-fit:contain;border-radius:14px;margin-bottom:18px;}
+p{min-height:90px;line-height:1.6;font-size:16px;}
+.footer{height:110px;display:flex;flex-direction:column;justify-content:flex-end;}
+.controls{display:flex;justify-content:center;gap:14px;margin-bottom:10px;}
+button{background:#ff4d6d;border:none;padding:12px 28px;border-radius:25px;color:white;font-size:16px;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.35);}
+#musicBtn{width:46px;height:46px;border-radius:50%;padding:0;}
+#dots{margin-bottom:10px;}
+.dot{width:9px;height:9px;background:rgba(255,255,255,.4);border-radius:50%;display:inline-block;margin:0 4px;}
+.dot.active{background:white;}
+
+#countdown{
+font-size:48px;
+font-weight:bold;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+z-index:4000;
+display:none;
+}
+
+#endingPage{
+position:fixed;
+inset:0;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:5000;
+}
+
+#endingPage img{
+width:100%;
+max-width:360px;
+border-radius:20px;
+}
+
+#datePopup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.6);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:6000;
+opacity:0;
+transition:0.5s;
+display:none;
+}
+#datePopup.show{opacity:1;display:flex;}
+#dateBox{background:white;color:#ff4d6d;padding:30px;border-radius:20px;width:90%;max-width:360px;text-align:center;}
+.dateBtns{position:relative;height:90px;margin-top:25px;}
+.dateBtns button{position:absolute;}
+#yesBtn{left:40px;} 
+#noBtn{right:40px;}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop preload="auto">
+  <source src="src/Cold-Feet.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+for(let i=0;i<28;i++){
+  let h=document.createElement('div');
+  h.className='heart';
+  h.innerHTML='❤️';
+  h.style.left=Math.random()*100+'vw';
+  document.body.appendChild(h);
+}
+</script>
+
+<div id="startScreen" class="screen visible">
+  <div id="envelope" class="envelope"><div class="flap"></div></div>
+  <h2>Tap the envelope 💌</h2>
+</div>
+
+<div id="slideshow" class="screen hidden" style="display:none;">
+  <div class="content">
+
+    <div class="slide"><img src="src/1.gif"><p data-text="Hi mahal! If you’re reading this, I’m probably writing this instead of working on my video edit. I saw a post on TikTok and immediately thought of you."></p></div>
+
+    <div class="slide"><img src="src/2.gif"><p data-text="I started looking back on the years of our relationship. I still remember the day na nag-inom kayo ni Lele. I was smiling while you were crying and asking me not to leave you, lasing na lasing ka na."></p></div>
+
+    <div class="slide"><img src="src/3.gif"><p data-text="Nagpapa-cool pa ako nun sa call, telling you to save some love for yourself too. If I could take myself back to that time, ang sarap batukan ng sarili ko."></p></div>
+
+    <div class="slide"><img src="src/5.gif"><p data-text="Or those times when I was being nonchalant, too complacent. I hope you’ll forgive me. I was too full of myself."></p></div>
+
+    <div class="slide"><img src="src/6.gif"><p data-text="I thought I was mature enough to believe I should be that guy who gives you space when you need it — the guy who reminds you to love yourself too. For what it’s worth, I genuinely cared about you, and I was thinking highly of you."></p></div>
+
+    <div class="slide"><img src="src/7.gif"><p data-text="If I’m being honest with myself — and with you — I want to be selfish. Not in a bad way. I want to be selfish in the sense that I want to be the one who gets to watch you become the person you want to be."></p></div>
+
+    <div class="slide"><img src="src/8.gif"><p data-text="I want to be the person who sees your smile and hears your contagious laugh. I want to be the person who stands beside you against all the odds."></p></div>
+
+    <div class="slide"><img src="src/9.gif"><p data-text="I want to be the last person who will love you and give you everything you deserve. If I get the chance to be selfish just once, I’d choose to be selfish with you."></p></div>
+
+    <div class="slide" id="finalSlide"><img src="src/11.gif"><p data-text="I don’t need anything or anyone else — you’re the only thing that can fill the void in my heart. Happy Valentine’s, mahal. I love you always. ❤️"></p></div>
+
+  </div>
+
+  <div class="footer">
+    <div id="dots"></div>
+    <div class="controls">
+      <button id="nextBtn">Next 💕</button>
+      <button id="musicBtn">🔊</button>
+    </div>
+  </div>
+</div>
+
+<div id="countdown"></div>
+
+<div id="endingPage">
+  <img src="src/10.gif">
+</div>
+
+<div id="datePopup">
+  <div id="dateBox">
+    <h3>Let’s go out on a date pag free ka na?</h3>
+    <div class="dateBtns">
+      <button id="yesBtn">Yes 💖</button>
+      <button id="noBtn">No 🙈</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+const nextBtn=document.getElementById('nextBtn');
+const music=document.getElementById('bgMusic');
+const musicBtn=document.getElementById('musicBtn');
+const startScreen=document.getElementById('startScreen');
+const slideshow=document.getElementById('slideshow');
+const countdown=document.getElementById('countdown');
+const endingPage=document.getElementById('endingPage');
+const datePopup=document.getElementById('datePopup');
+const noBtn=document.getElementById('noBtn');
+const yesBtn=document.getElementById('yesBtn');
+let index=0,typing;
+let autoNoTimer;
+
+const dotsContainer=document.getElementById('dots');
+slides.forEach((_,i)=>{
+  let d=document.createElement('span');
+  d.className='dot';
+  dotsContainer.appendChild(d);
+});
+const dots=document.querySelectorAll('.dot');
+
+function typeText(p){
+  clearInterval(typing);
+  let i=0,txt=p.dataset.text;
+  p.textContent='';
+  typing=setInterval(()=>{
+    if(i<txt.length)p.textContent+=txt[i++];
+    else clearInterval(typing);
+  },30);
+}
+
+function showSlide(i){
+  slides.forEach(s=>s.classList.remove('active'));
+  slides[i].classList.add('active');
+  dots.forEach(d=>d.classList.remove('active'));
+  dots[i].classList.add('active');
+  typeText(slides[i].querySelector('p'));
+  nextBtn.textContent=(i===slides.length-1)?'Done ❤️':'Next 💕';
+}
+
+startScreen.onclick=()=>{
+  music.play().catch(()=>{});
+  startScreen.classList.add('hidden');
+  slideshow.style.display="flex";
+  slideshow.classList.remove('hidden');
+  index=0;
+  showSlide(index);
+};
+
+nextBtn.onclick=()=>{
+  if(index<slides.length-1){index++;showSlide(index);}
+  else finish();
+};
+
+musicBtn.onclick=()=>{
+  music.muted=!music.muted;
+  musicBtn.textContent=music.muted?'🔇':'🔊';
+};
+
+function finish(){
+  slideshow.classList.add('hidden');
+
+  countdown.style.display='block';
+  let c=5;
+  countdown.textContent=c;
+
+  const timer=setInterval(()=>{
+    c--;
+    countdown.textContent=c;
+    if(c===0){
+      clearInterval(timer);
+      countdown.style.display='none';
+
+      endingPage.style.display='flex';
+
+      setTimeout(()=>{
+        datePopup.style.display='flex';
+        datePopup.classList.add('show');
+
+        autoNoTimer=setTimeout(()=>{
+          alert("Nah, you clicked too late 😜 It's a date anyway!");
+        },7000);
+
+      },3000);
+    }
+  },1000);
+}
+
+noBtn.onmouseenter=()=>{
+  const x=Math.random()*80-40; 
+  const y=Math.random()*30-15;
+  noBtn.style.transform=`translate(${x}px,${y}px)`;
+};
+
+yesBtn.onclick=()=>{
+  clearTimeout(autoNoTimer);
+  alert("Yay! It's a date! ❤️");
+};
+
+noBtn.onclick=()=>{
+  clearTimeout(autoNoTimer);
+  alert("Nah, you clicked too late 😜 It's a date anyway!");
+};
+</script>
+
+</body>
+</html>
